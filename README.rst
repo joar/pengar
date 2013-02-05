@@ -5,7 +5,7 @@
 :Author: `Joar Wandborg <http://wandborg.se>`_
 :License: AGPLv3 or later
 
-Pengar is a library interface to `Swedbank's mobile site`_.
+Pengar is a work in progress.
 
 .. _`swedbank's mobile site`: https://mobilbank.swedbank.se/
 
@@ -31,31 +31,28 @@ Pengar is a library interface to `Swedbank's mobile site`_.
 
     .. code-block:: bash
 
-        pip install -r requirements.txt
+        python setup.py develop
 
 
 -------
  Usage
 -------
 
-The ``swedbank.py`` library can be run directly from the command line:
-
 .. code-block:: bash
 
-    $ python swedbank.py
+    $ pengar
     Social security number: 9010240000
     Passcode:
-    INFO:__main__:Requesting CSRF token...
-    INFO:__main__:Submitting SSN login form...
-    INFO:__main__:Submitting code...
-    INFO:__main__:Requesting accounts...
+    INFO:pengar.swedbank:Requesting CSRF token...
+    INFO:pengar.swedbank:Submitting SSN login form...
+    INFO:pengar.swedbank:Submitting code...
+    INFO:pengar.swedbank:Requesting accounts...
     {{ account data }}
-    INFO:__main__:Requesting account 1, page 1
-    INFO:__main__:Requesting account 1, page 2
-    INFO:__main__:Requesting account 1, page 3
+    INFO:pengar.swedbank:Requesting account 1, page 1
+    INFO:pengar.swedbank:Requesting account 1, page 2
+    INFO:pengar.swedbank:Requesting account 1, page 3
     {{ transaction data }}
 
-However, it's intended use is to be accessed from third party scripts.
 
 ----------
  Thank you
