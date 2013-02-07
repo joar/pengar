@@ -11,10 +11,12 @@ for line in open('requirements.txt', 'r'):
 
 setup(
     name='pengar',
-    version='0.1.0',
+    version='0.1.1',
     author='Joar Wandborg',
     author_email='joar@wandborg.se',
     install_requires=install_requires,
+    description='Spendings overview for Swedbank SE',
+    long_description=open('README.rst').read(),
     entry_points={
         'console_scripts': [
             'pengar = pengar:main',
