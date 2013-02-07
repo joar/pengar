@@ -40,7 +40,7 @@ Pengar is a work in progress.
 
 .. code-block:: bash
 
-    $ pengar
+    $ pengar debug
     Social security number: 9010240000
     Passcode:
     INFO:pengar.swedbank:Requesting CSRF token...
@@ -52,6 +52,42 @@ Pengar is a work in progress.
     INFO:pengar.swedbank:Requesting account 1, page 2
     INFO:pengar.swedbank:Requesting account 1, page 3
     {{ transaction data }}
+
+or if you want to put the results in a database for easy querying:
+
+.. code-block:: bash
+
+    $ pengar update
+    [...]
+
+then
+
+.. code-block:: bash
+
+    sqlite3 pengar.sqlite
+
+and then you can execute queries on the data:
+
+.. code-block:: sql
+
+    SELECT note,
+        SUM(amount),
+        COUNT(amount)
+    FROM transaction
+    GROUP BY note
+    ORDER BY SUM(amount);
+
++----------------------------------+--------+-------+
+| note                             | sum    | count |
++==================================+========+=======+
+| ICA SUPERMARKET                  |  -6948 |    28 |
++----------------------------------+--------+-------+
+| Överföring Spar, 3k              |  -6000 |     2 |
++----------------------------------+--------+-------+
+| Dalpay.is                        |  -1712 |     1 |
++----------------------------------+--------+-------+
+| Bankomatuttag                    |  -1500 |     1 |
++----------------------------------+--------+-------+
 
 
 ----------
