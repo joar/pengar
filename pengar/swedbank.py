@@ -71,6 +71,10 @@ class Swedbank(object):
 
         self.logged_in = True
 
+    def _parse_numeric(self, string):
+        number = _comma_re.sub('.', string)
+        return _space_re.sub('', number)
+
     def get_accounts(self):
         if not self.logged_in:
             raise RuntimeError('Not logged in')
@@ -86,7 +90,8 @@ class Swedbank(object):
         for dd in soup.dl.find_all('dd'):
             account = {
                 'name': dd.find('span', 'name').string.strip(),
-                'amount': dd.find('span', 'amount').string.strip()
+                'amount': self._parse_numeric(
+                    dd.find('span', 'amount').string.strip())
             }
 
 
@@ -121,23 +126,32 @@ class Swedbank(object):
 
             transactions.extend(self._parse_transactions(account_res.text))
 
+            if not 'N&auml;sta' in account_res.text:
+                _log.info('Reached end of available history. Stopping.')
+                break
+
         return transactions
 
     def _parse_transactions(self, content):
         soup = BeautifulSoup(content)
         transactions = []
 
-        for dd in soup.find_all('dl')[2].find_all('dd'):
+        for dd in soup.find_all('dl')[-1].find_all('dd'):
             transaction = {
                 'date': datetime.strptime(
                     dd.find('span', 'date').string.strip(),
                     '%y-%m-%d'),
                 'note': dd.find('span', 'receiver').string.strip(),
-                'amount': dd.find('span', 'amount').string.strip()
+                'amount': self._parse_numeric(
+                    dd.find('span', 'amount').string.strip())
             }
             transactions.append(transaction)
 
         return transactions
+
+_comma_re = re.compile(r',')
+_space_re = re.compile(r' ')
+
 
 if __name__ == '__main__':
     # Set up logging

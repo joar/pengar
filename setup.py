@@ -11,7 +11,7 @@ for line in open('requirements.txt', 'r'):
 
 setup(
     name='pengar',
-    version='0.0.1-dev',
+    version='0.1.0',
     author='Joar Wandborg',
     author_email='joar@wandborg.se',
     install_requires=install_requires,

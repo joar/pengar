@@ -1,21 +1,36 @@
 import logging
-from . import swedbank
+
+from argparse import ArgumentParser
+
+from . import commands
+
+import config
 
 _log = logging.getLogger(__name__)
+
+def get_commands():
+    return commands.__all__
+
 
 def main():
     # Set up logging
     logging.basicConfig()
     _log.setLevel(logging.INFO)
 
-    bank = swedbank.Swedbank()
-    bank.login()
+    parser = ArgumentParser(epilog='Created with <3 by Joar Wandborg')
+    parser.add_argument(
+        'action',
+        metavar='command',
+        type=str,
+        help='One of {0}'.format(', '.join(get_commands())))
 
-    accounts = bank.get_accounts()
-    print(accounts)
+    args = parser.parse_args()
 
-    transactions = bank.get_transactions(1, 3)
-    print(transactions)
+    if args.action and hasattr(commands, args.action):
+        return getattr(commands, args.action)()
+    else:
+        parser.print_help()
+
 
 if __name__ == '__main__':
     main()
