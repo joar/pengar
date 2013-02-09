@@ -1,55 +1,94 @@
 from flask import Flask, render_template, json
 from flask.ext.bootstrap import Bootstrap
 
+from jinja2 import Markup
+
 from pengar.models import Transaction
 
+from pprint import PrettyPrinter
 import config
-import re
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 app.config.from_object(config)
 
 bootstrap = Bootstrap(app)
 
+pp = PrettyPrinter(indent=4)
+
 @app.route('/')
 def index():
-    transactions = Transaction.query.order_by(Transaction.date.asc()).all()
+    days = 30
+    date_start = datetime.now() - timedelta(days=days)
 
-    series_data = {}
+    transactions = Transaction.query\
+            .filter(Transaction.date > date_start)\
+            .filter(Transaction.amount < 0)\
+            .order_by(Transaction.date.asc()).all()
 
-    for transaction in transactions:
-        series_data.setdefault(transaction.note, [])
-        serializable = transaction.serializable
+    serializable = []
+    for t in transactions:
+        s = t.serializable
+        s['amount'] /= -1
+        serializable.append(s)
 
-        series_data[transaction.note].append(serializable)
+    data = {}
 
-    # Create a list of series
-    series = map(
-        lambda value: {
-            # Get the note from the first dict() item in the list
-            'name': value[0]['note'],
-            # Create the datapoints
-            'data': map(
-                lambda x:
-                    [
-                        x['date'],
-                        x['amount']
-                    ], value)
-        },
-        series_data.values())
+    for s in serializable:
+        data.setdefault(s['note'], [])
+        data[s['note']].append(
+            (s['date'], s['amount']))
 
-    series_json = json.dumps(series)
+    series = []
 
-    series_json = re.sub(
-        r'("(?P<year>\d{4})-0?(?P<month>\d{1,2})-0?(?P<day>\d{1,2})T([^"]*?)")',
-        r'Date.UTC(\g<year>, \g<month>, \g<day>)',
-        series_json)
+    for note, values in data.items():
+        s = sorted(values, key=lambda x: x[0])
+
+        last_date = -1
+        dates = []
+
+        for date, amount in s:
+            # Set 'date' to days since first day in query
+            date = (datetime.strptime(date, '%Y-%m-%dT%H:%M:%S')
+                    - date_start).days
+
+            if not date == last_date + 1:
+                # If there's a hole in the data before the current date, fill
+                # it in
+                for filler_date in range(last_date + 1, date):
+                    dates.append([filler_date, 0])
+
+            dates.append([date, amount])
+
+            last_date = date
+
+        if len(dates) < days + 1:
+            # If there's a hole at the end of the dates, fill it in
+            for filler_date in range(last_date + 1, days + 1):
+                dates.append([filler_date, 0])
+
+        app.logger.debug(u'dates for {2} ({1}): {0}'.format(
+            pp.pformat(dates),
+            len(dates),
+            note
+        ))
+
+        for date in dates:
+            series.append({
+                'note': note,
+                'date': (date_start + timedelta(date[0])).isoformat().split('.')[0],
+                'amount': date[1]
+            })
+
+    app.logger.debug('series: {0}'.format(pp.pformat(series)))
+
 
     return render_template(
         'index.html',
-        title=u'Pengar',
-        series=series_json
+        title=Markup(u'Overview &mdash; Pengar'),
+        series=json.dumps(series)
     )
+
 
 @app.route('/update')
 def update():

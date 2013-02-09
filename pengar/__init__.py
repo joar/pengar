@@ -15,6 +15,7 @@ def get_commands():
 def main():
     # Set up logging
     _log.setLevel(logging.INFO)
+    logging.getLogger().setLevel(logging.DEBUG)
 
     parser = ArgumentParser(epilog='Created with <3 by Joar Wandborg')
     parser.add_argument(
