@@ -57,7 +57,8 @@ or if you want to put the results in a database for easy querying:
 
 .. code-block:: bash
 
-    $ pengar update
+    pengar dbupdate # Creates the tables in the database
+    pengar update
     [...]
 
 then
@@ -66,7 +67,7 @@ then
 
     sqlite3 pengar.sqlite
 
-and then you can execute queries on the data:
+now you can execute queries on the data:
 
 .. code-block:: sql
 
@@ -88,6 +89,13 @@ and then you can execute queries on the data:
 +----------------------------------+--------+-------+
 | Bankomatuttag                    |  -1500 |     1 |
 +----------------------------------+--------+-------+
+
+Also, there's a simple web server that displays a basic graph of the data in
+the database.
+
+.. code-block:: bash
+
+    pengar serve
 
 
 ----------
