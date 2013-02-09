@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+        <div id="chart">
+        </div>
+{% endblock %}
+{% block bootstrap_js_bottom %}
+    {{ super() }}
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script>
+var series = {{ series|safe }};
+
+
+$(document).ready(function () {
+    var chart = new Highcharts.Chart({
+        credits: {
+            enabled: false
+        },
+        title: {
+            text: 'Pengar',
+        },
+        chart: {
+            renderTo: 'chart',
+        },
+        xAxis: {
+            type: 'datetime',
+        },
+        series: series
+    });
+});
+    </script>
+{% endblock %}

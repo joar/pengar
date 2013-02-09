@@ -1,7 +1,9 @@
 import re
+import json
 
 from sqlalchemy.ext.declarative import declarative_base, DeclarativeMeta
 from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy import Numeric, DateTime
 
 from sqlalchemy import Column
 
@@ -39,8 +41,42 @@ class _BoundDeclarativeMeta(DeclarativeMeta):
         if bind_key is not None:
             self.__table__.info['bind_key'] = bind_key
 
+
 class PengarBaseModel(object):
     query = Session.query_property()
+
+    @property
+    def serializable(self):
+        convert = {
+            Numeric: float,
+            DateTime: lambda x: x.isoformat()
+        }
+
+        serializable = dict()
+
+        for column in self.__class__.__table__.columns:
+            value = getattr(self, column.name)
+            column_type = type(column.type)
+
+            if column_type in convert.keys() and value is not None:
+                try:
+                    serializable[column.name] = convert[column_type](value)
+                except:
+                    serializable[column.name] = \
+                            u'Error:  Failed to convert using '.format(
+                                unicode(convert[column_type]))
+
+            elif value is None:
+                serializable[column.name] = unicode()
+
+            else:
+                serializable[column.name] = value
+
+        return serializable
+
+    def to_json(self):
+        return json.dumps(self.serializable)
+
 
 def _defines_primary_key(d):
     """Figures out if the given dictonary defines a primary key column."""
