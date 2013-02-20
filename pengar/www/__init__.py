@@ -1,13 +1,18 @@
-from flask import Flask, render_template, json
-from flask.ext.bootstrap import Bootstrap
+import os
+from pprint import PrettyPrinter
+from datetime import datetime, timedelta
+
+from sqlalchemy import func
 
 from jinja2 import Markup
 
-from pengar.models import Transaction
+from flask import Flask, render_template, json
+from flask.ext.bootstrap import Bootstrap
 
-from pprint import PrettyPrinter
+from pengar.models import Transaction
+from pengar.database import db
+
 import config
-from datetime import datetime, timedelta
 
 app = Flask(__name__)
 app.config.from_object(config)
@@ -18,18 +23,23 @@ pp = PrettyPrinter(indent=4)
 
 @app.route('/')
 def index():
-    days = 30
+    days = int(os.environ.get('DAYS', 30))
     date_start = datetime.now() - timedelta(days=days)
 
-    transactions = Transaction.query\
-            .filter(Transaction.date > date_start)\
-            .filter(Transaction.amount < 0)\
-            .order_by(Transaction.date.asc()).all()
+    transactions = db.session.query(
+        Transaction.date.label('date'),
+        Transaction.note.label('note'),
+        func.sum(Transaction.amount).label('amount')\
+    ).filter(Transaction.date > date_start)\
+    .filter(Transaction.amount < 0)\
+    .group_by(Transaction.date, Transaction.note)\
+    .order_by(Transaction.date.asc()).all()
 
     serializable = []
     for t in transactions:
-        s = t.serializable
-        s['amount'] /= -1
+        s = t.__dict__
+        s['date'] = s['date'].isoformat()
+        s['amount'] = int(s['amount'] / -1)
         serializable.append(s)
 
     data = {}
