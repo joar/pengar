@@ -8,3 +8,4 @@ SQLALCHEMY_DATABASE_URI = DATABASE_URL
 # WWW
 PORT = int(os.environ.get('PORT', 5003))
 DEBUG = bool(int(os.environ.get('DEBUG', 1)))
+SECRET_KEY = os.environ.get('SECRET_KEY', 'this isn\'t secret anymore')

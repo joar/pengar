@@ -7,7 +7,9 @@ from sqlalchemy import Numeric, DateTime
 
 from sqlalchemy import Column
 
-Session = scoped_session(sessionmaker())
+Session = scoped_session(sessionmaker(
+    autoflush=False,
+    autocommit=False))
 
 _camelcase_re = re.compile(r'([A-Z]+)(?=[a-z0-9])')
 

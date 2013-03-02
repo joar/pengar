@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% import 'bootstrap_wtf.html' as wtf %}
+
+{% block content %}
+<div class="row">
+    <div class="span8">
+        <h2>Register an account <small>It's free, so far</small></h2>
+        <form class="form form-horizontal" method="post">
+            {{ form.hidden_tag() }}
+            {{ wtf.form_errors(form, 'only') }}
+            {{ wtf.horizontal_field(form.email) }}
+            {{ wtf.horizontal_field(form.password) }}
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+        </form>
+    </div>
+    <div class="span4">
+        <h2>What happens to my information?</h2>
+        <dl>
+            <dt>Email</dt>
+            <dd>Used by you to authenticate yourself.</dd>
+            <dd>Stored in the <strong>Pengar</strong> database.</dd>
+
+            <dt>Password<dt>
+            <dd>Encrypted and stored in the <strong>Pengar</strong> database.</dd>
+            <dd>Used by you to authenticate yourself.</dd>
+
+            <dt>Transaction records</dt>
+            <dd>Stored in the <strong>Pengar</strong> database.</dd>
+            <dd>Queried by the <strong>Pengar</strong> service to generate the
+            transaction overviews.</dd>
+
+            <dt>Social security number</dt>
+            <dd>Used by you to update your transaction records.</dd>
+            <dd><strong>NOT</strong> stored in the database.</dd>
+
+            <dt>Security code</dt>
+            <dd>Used by you to update your transaction records.</dd>
+            <dd><strong>NOT</strong> stored in the database.</dd>
+        </dl>
+    </div>
+</div>
+{% endblock %}

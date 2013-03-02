@@ -1,0 +1,81 @@
+section {
+    padding-top: 40px;
+}
+
+.privacy-container > .row > div > section:first-child {
+    padding: 0;
+}
+
+
+.chart {
+  font: 10px sans-serif;
+}
+
+.chart .axis path,
+.chart .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.chart .layer {
+    transition: all ease-in-out .6s;
+    stroke: rgba(0, 0, 0, 0);
+    stroke-width: 1;
+    opacity: .7;
+}
+.chart .layer:hover {
+    opacity: 1;
+}
+
+.index-container .jumbotron {
+    position: relative;
+}
+.index-container h1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -25px;
+    margin-left: -100px;
+    text-shadow: 0 0 100px white, 0 0 100px white,
+        0 0 100px white, 0 0 100px white,
+        0 0 50px white, 0 0 25px white, 0 0 15px white;
+}
+.index-container .chart {
+    opecity: .5;
+    width: 100%;
+}
+
+#sidenav {
+    width: 258px;
+    border-radius: 6px 6px 6px 6px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.067);
+    margin: 30px 0px 0px;
+    padding: 0;
+}
+#sidenav > li:first-child > a {
+    border-radius: 6px 6px 0px 0px;
+}
+#sidenav > li:last-child > a {
+    border-radius: 0px 0px 6px 6px;
+}
+
+#sidenav > li > a {
+    display: block;
+    margin: 0px 0px -1px;
+    padding: 8px 14px;
+    border: 1px solid rgb(229, 229, 229);
+    box-shadow: 1px 0px 0px rgba(0, 0, 0, 0.1) inset, -1px 0px 0px rgba(0, 0,
+    0, 0.1) inset;
+}
+#sidenav .icon-chevron-right {
+    float: right;
+    margin-top: 2px;
+    margin-right: -6px;
+    opacity: 0.25;
+}
+
+#sidenav .active .icon-chevron-right,
+#sidenav .active a:hover .icon-chevron-right {
+    opacity: 1;
+}

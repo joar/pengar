@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <div class="span12">
+        <h1 class="page-header">Privacy <small>Since you probably want to
+                know.</small></h1>
+    </div>
+    <div class="span4">
+        <ul id="sidenav" class="nav nav-list">
+            <li><a href="#email"><i class="icon-chevron-right pull-right"></i>Email</a></li>
+            <li><a href="#password"><i class="icon-chevron-right pull-right"></i>Password</a></li>
+            <li><a href="#transactions"><i class="icon-chevron-right pull-right"></i>Transactions</a></li>
+            <li><a href="#accounts"><i class="icon-chevron-right pull-right"></i>Accounts</a></li>
+            <li><a href="#ssn"><i class="icon-chevron-right pull-right"></i>Social security number</a></li>
+            <li><a href="#code"><i class="icon-chevron-right pull-right"></i>Security code</a></li>
+        </ul>
+    </div>
+    <div class="span8">
+
+        <section id="email">
+            <h2>Email <small>Canonical identifier</small></h2>
+            <p>Your email address will be stored in the <strong>Pengar</strong>
+            database to enable you to log in using it together with your <a
+            href="#password">password</a>.</p>
+        </section>
+
+        <section id="password">
+            <h2>Password <small>Sssh, secret</small></h2>
+            <p>Your password is used together with your <a
+                href="#email">email</a> to authenticate you to the
+            <strong>Pengar</strong> service.</p>
+
+            <p>Your password will be encrypted with a one-way hashing algorithm
+            and stored in the <strong>Pengar</strong> database.</p>
+        </section>
+
+        <section id="transactions">
+            <h2>Transactions <small>Do I really spend that much on
+                    food?</small></h2>
+            <p>Your transactions contain the following information:</p>
+            <dl>
+                <dt>note</dt>
+                <dd>The text that is visible in the account overview on your online
+                banking pages.</dd>
+                <dt>date</dt>
+                <dd>The date on which the transaction was registered.</dd>
+                <dt>amount</dt>
+                <dd>The amount of the transaction.</dd>
+            </dl>
+
+            <p>Transactions are stored in the database indefinitely.</p>
+            <p>Transactions are queried by the <strong>Pengar</strong> application
+            and it is the transactions that give us the base for the beautiful
+            graphs.</p>
+        </section>
+
+        <section id="accounts">
+            <h2>Accounts <small>I should really get a savings
+                account</small></h2>
+            <p>Your account records contain the following information:</p>
+            <dl>
+                <dt>label</dt>
+                <dd>The name of the account</dd>
+                <dt>amount<dt>
+                <dd>The amount of the account when it was first added (we don't
+                use this really, we should get rid of it).</dd>
+            </dt>
+            <p>The accounts are fetched from your internet banking page.</p>
+            <p>The accounts are used to segment your transactions.</p>
+            <p>The accounts are stored indefinitely in the
+            <strong>Pengar</strong> database.</p>
+        </section>
+
+        <section id="ssn">
+            <h2>Social security number <small>Not funny</small></h2>
+            <p>Your social security number is used to authenticate to
+            Swedbank's <a href="https://mobilbank.swedbank.se">mobile internet
+                banking page</a>.</p>
+            <p>Your social security number is <strong>NOT</strong> saved. It is
+            kept in volatile memory until the communication with Swedbank's
+            servers is done.</p>
+        </section>
+
+        <section id="code">
+            <h2>Security code</h2>
+            <p>Your security is treated the same way as your <a
+                href="#ssn">social security number</a>.</p>
+        </section>
+    </div>
+</div>
+{% endblock %}

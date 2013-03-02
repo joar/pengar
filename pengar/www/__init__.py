@@ -1,108 +1,81 @@
-import os
-from pprint import PrettyPrinter
-from datetime import datetime, timedelta
+from werkzeug.datastructures import CallbackDict
+from flask.sessions import SessionInterface, SessionMixin
+from itsdangerous import URLSafeTimedSerializer, BadSignature
 
-from sqlalchemy import func
-
-from jinja2 import Markup
-
-from flask import Flask, render_template, json
+from flask import Flask, g
 from flask.ext.bootstrap import Bootstrap
 
-from pengar.models import Transaction
-from pengar.database import db
-
 import config
+
+from pengar.models import Account
+from pengar.database.base import Session
+from pengar.www.util import get_current_user
 
 app = Flask(__name__)
 app.config.from_object(config)
 
 bootstrap = Bootstrap(app)
 
-pp = PrettyPrinter(indent=4)
 
-@app.route('/')
-def index():
-    days = int(os.environ.get('DAYS', 30))
-    date_start = datetime.now() - timedelta(days=days)
-
-    transactions = db.session.query(
-        Transaction.date.label('date'),
-        Transaction.note.label('note'),
-        func.sum(Transaction.amount).label('amount')\
-    ).filter(Transaction.date > date_start)\
-    .filter(Transaction.amount < 0)\
-    .group_by(Transaction.date, Transaction.note)\
-    .order_by(Transaction.date.asc()).all()
-
-    serializable = []
-    for t in transactions:
-        s = t.__dict__
-        s['date'] = s['date'].isoformat()
-        s['amount'] = int(s['amount'] / -1)
-        serializable.append(s)
-
-    data = {}
-
-    for s in serializable:
-        data.setdefault(s['note'], [])
-        data[s['note']].append(
-            (s['date'], s['amount']))
-
-    series = []
-
-    for note, values in data.items():
-        s = sorted(values, key=lambda x: x[0])
-
-        last_date = -1
-        dates = []
-
-        for date, amount in s:
-            # Set 'date' to days since first day in query
-            date = (datetime.strptime(date, '%Y-%m-%dT%H:%M:%S')
-                    - date_start).days
-
-            if not date == last_date + 1:
-                # If there's a hole in the data before the current date, fill
-                # it in
-                for filler_date in range(last_date + 1, date):
-                    dates.append([filler_date, 0])
-
-            dates.append([date, amount])
-
-            last_date = date
-
-        if len(dates) < days + 1:
-            # If there's a hole at the end of the dates, fill it in
-            for filler_date in range(last_date + 1, days + 1):
-                dates.append([filler_date, 0])
-
-        app.logger.debug(u'dates for {2} ({1}): {0}'.format(
-            pp.pformat(dates),
-            len(dates),
-            note
-        ))
-
-        for date in dates:
-            series.append({
-                'note': note,
-                'date': (date_start + timedelta(date[0])).isoformat().split('.')[0],
-                'amount': date[1]
-            })
-
-    app.logger.debug('series: {0}'.format(pp.pformat(series)))
+@app.before_request
+def inject_accounts():
+    g.accounts = Account.query.all()
+    g.user = get_current_user()
 
 
-    return render_template(
-        'index.html',
-        title=Markup(u'Overview &mdash; Pengar'),
-        series=json.dumps(series)
-    )
+@app.teardown_request
+def shutdown_session(exception=None):
+    Session.remove()
 
 
-@app.route('/update')
-def update():
-    return render_template(
-        'update.html',
-        title=u'Update'
-    )
+class ItsdangerousSession(CallbackDict, SessionMixin):
+
+    def __init__(self, initial=None):
+        def on_update(self):
+            self.modified = True
+        CallbackDict.__init__(self, initial, on_update)
+        self.modified = False
+
+
+class ItsdangerousSessionInterface(SessionInterface):
+    salt = 'cookie-session'
+    session_class = ItsdangerousSession
+
+    def get_serializer(self, app):
+        if not app.secret_key:
+            return None
+        return URLSafeTimedSerializer(app.secret_key,
+                                      salt=self.salt)
+
+    def open_session(self, app, request):
+        s = self.get_serializer(app)
+        if s is None:
+            return None
+        val = request.cookies.get(app.session_cookie_name)
+        if not val:
+            return self.session_class()
+        max_age = app.permanent_session_lifetime.total_seconds()
+        try:
+            data = s.loads(val, max_age=max_age)
+            return self.session_class(data)
+        except BadSignature:
+            return self.session_class()
+
+    def save_session(self, app, session, response):
+        domain = self.get_cookie_domain(app)
+        if not session:
+            if session.modified:
+                response.delete_cookie(app.session_cookie_name,
+                                   domain=domain)
+            return
+        expires = self.get_expiration_time(app, session)
+        val = self.get_serializer(app).dumps(dict(session))
+        response.set_cookie(app.session_cookie_name, val,
+                            expires=expires, httponly=True,
+                            domain=domain)
+
+
+app.session_interface = ItsdangerousSessionInterface()
+
+import pengar.www.views
+import pengar.www.api.views

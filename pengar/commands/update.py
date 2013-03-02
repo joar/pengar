@@ -1,5 +1,6 @@
 from pengar.swedbank import Swedbank
-from pengar.models import Account, Transaction
+from pengar.util.update import save_transactions
+from pengar.models import Account
 from pengar.database import db
 
 
@@ -37,22 +38,21 @@ def main():
         ' the local database? [Y/n]: ')
 
     if proceed.lower() == 'y':
-        account = Account(
-            label=accounts[account_id]['name'],
-            amount=accounts[account_id]['amount'])
+        account_data = accounts[account_id]
 
-        db.session.add(account)
-        db.session.commit()
+        account = Account.query.filter(Account.label == account_data['name']).first()
 
-        for t in transactions:
-            transaction = Transaction(
-                account_id=account.id,
-                note=t['note'],
-                date=t['date'],
-                amount=t['amount'])
+        if account is None:
+            account = Account(
+                label=account_data['name'],
+                amount=account_data['amount'])
 
-            db.session.add(transaction)
+            db.session.add(account)
             db.session.commit()
 
+        saved_transactions = save_transactions(
+            account.id,
+            transactions)
+
         print('Wrote {0} transactions to the database'.format(
-            len(transactions)))
+            saved_transactions))

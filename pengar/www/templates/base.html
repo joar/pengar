@@ -1,25 +1,95 @@
 {% extends 'bootstrap_responsive.html' %}
+
+{% block style %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='pengar.css') }}" />
+{% endblock %}
+
 {% block body_content %}
 <div class="navbar navbar-fixed-top navbar-inverse">
     <div class="navbar-inner">
         <div class="container">
-            <a class="brand" href="{{ url_for('index') }}">Pengar</a>
+            <a {{setactive('index', 'brand')}} href="{{ url_for('index') }}">Pengar</a>
             <ul class="nav">
-                {% for endpoint, caption in [
-                    ('index', 'Overview'),
-                    ] %}
-                    <li{% if endpoint == request.endpoint %} class="active"
-                        {%- endif %}>
-                        <a href="{{ url_for(endpoint) }}">{{ caption }}</a></li>
-                {% endfor %}
+                {% if g.user %}
+                <li {{ setactive('overview', 'dropdown') }}>
+                    <a href="#" class="dropdown-toggle"
+                        data-toggle="dropdown">
+                        Overview
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        {% for account in g.user.accounts %}
+                        <li><a
+                            href="{{ url_for('overview', account_id=account.id) }}">
+                            {{ account.label }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                {% endif %}
+            </ul>
+            <ul class="nav pull-right">
+                {% if g.user %}
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle"
+                        data-toggle="dropdown">{{ g.user.email }}
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ url_for('update') }}">Update</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{{ url_for('logout') }}">Log out</a></li>
+                    </ul>
+                </li>
+                {% else %}
+                <li><a href="{{ url_for('login') }}">Log in</a></li>
+                <li><a href="{{ url_for('register') }}">Register</a></li>
+                {% endif %}
             </ul>
         </div>
     </div>
 </div>
+{% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        <button class="close" data-dismiss="alert">&times;</button>
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endwith %}
 {% block container %}
-<div class="container">
+<div class="container {{ request.endpoint }}-container">
     {% block content %}
     {% endblock %}
 </div>
 {% endblock %}
+<hr />
+<footer>
+    <div class="container">
+        <ul class="nav nav-pills">
+            <li{{ setactive('privacy')}}><a href="{{ url_for('privacy')
+                }}">Privacy</a></li>
+            <li><a href="https://github.com/joar/pengar">Source</a></li>
+        </ul>
+    </div>
+</footer>
 {% endblock %}
+
+{% block bootstrap_js_bottom %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='pengar.js') }}"></script>
+{% endblock %}
+
+{% macro setactive(endpoint, classnames) %}
+class="{% if endpoint == request.endpoint %}active {% endif %}{{ classnames }}"
+{% endmacro %}

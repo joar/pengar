@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% import 'bootstrap_wtf.html' as wtf %}
+
+{% block content %}
+<div class="row">
+    <div class="span8">
+        <form class="form form-horizontal" method="post">
+            <fieldset>
+                <legend>Log in to <strong>Pengar</strong></legend>
+                {{ form.hidden_tag() }}
+                {{ wtf.form_errors(form, 'only') }}
+                {{ wtf.horizontal_field(form.email) }}
+                {{ wtf.horizontal_field(form.password) }}
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+{% endblock %}

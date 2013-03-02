@@ -1,8 +1,42 @@
 {% extends 'base.html' %}
 
 {% block content %}
-        <div id="chart">
-        </div>
+<div class="jumbotron" style="text-align: center;">
+    <div class="chart"></div>
+    <h1><strong>Pengar</strong>?</h1>
+</div>
+<div class="row">
+    <div class="span3">
+        <h3>Free</h3>
+        <p><strong>Pengar</strong> is an <a
+            href="https://github.com/joar/pengar">open source project</a>.</p>
+        <p>Anyone can take a look at, the code, copy the code and edit it to
+        fix an issue or add new functionality.</p>
+    </div>
+    <div class="span3">
+        <h3>Useful?</h3>
+        <p><strong>Pengar</strong> gives you an overview of your
+        spendings over time.</p>
+        <p>Spendings are grouped by the message that
+            appears in your account.</p>
+    </div>
+    <div class="span3">
+        <h3>Waiting for you</h3>
+        <p><strong>Pengar</strong> supports Swedbank in Sweden as of now. If
+            you have a request for another bank to be added, <a
+            href="https://github.com/joar/pengar/issues">submit a ticket on
+            GitHub</a> or if you speak code, submit a pull request<big>☺</big>.</p>
+    </div>
+    <div class="span3">
+        <h3>Security?</h3>
+        <p>Technical information about the storage of your information is
+        available on the <a href="{{ url_for('register') }}">registration</a>
+        page. Even more technical information is available on the <a href="{{
+        url_for('privacy') }}">privacy</a> page.</p>
+        <p>The technical-est information is avalaible in the <a
+            href="https://github.com/joar/pengar">source code</a>.</p>
+    </div>
+</div>
 {% endblock %}
 {% block bootstrap_js_bottom %}
     {{ super() }}
@@ -10,11 +44,4671 @@
     <script src="http://d3js.org/d3.v3.js"></script>
     <script>
 
-var raw_series = {{ series|safe }};
+var account_id = 1;
+
+/*
+ * Load the data
+ */
+var json = {
+  "series": [
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-01-30T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-01-31T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-02-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-02-02T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-02-03T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-02-04T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-02-05T19:52:01", 
+      "amount": 89
+    }, 
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-02-06T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-02-07T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-02-08T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-02-09T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-02-10T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-02-11T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-02-12T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-02-13T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-02-14T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-02-15T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-02-16T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-02-17T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-02-18T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-02-19T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-02-20T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-02-21T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-02-22T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-02-23T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-02-24T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-02-25T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-02-26T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-02-27T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-02-28T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BURGER KING ODEN", 
+      "date": "2013-03-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-01-30T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-01-31T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-02-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-02-02T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-02-03T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-02-04T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-02-05T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-02-06T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-02-07T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-02-08T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-02-09T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-02-10T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-02-11T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-02-12T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-02-13T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-02-14T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-02-15T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-02-16T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-02-17T19:52:01", 
+      "amount": 948
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-02-18T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-02-19T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-02-20T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-02-21T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-02-22T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-02-23T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-02-24T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-02-25T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-02-26T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-02-27T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-02-28T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "BREDBANDSBOLAGET", 
+      "date": "2013-03-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-01-30T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-01-31T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-02-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-02-02T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-02-03T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-02-04T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-02-05T19:52:01", 
+      "amount": 875
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-02-06T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-02-07T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-02-08T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-02-09T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-02-10T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-02-11T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-02-12T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-02-13T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-02-14T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-02-15T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-02-16T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-02-17T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-02-18T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-02-19T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-02-20T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-02-21T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-02-22T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-02-23T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-02-24T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-02-25T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-02-26T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-02-27T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-02-28T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TAXI STOCKHOLM", 
+      "date": "2013-03-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-01-30T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-01-31T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-02-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-02-02T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-02-03T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-02-04T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-02-05T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-02-06T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-02-07T19:52:01", 
+      "amount": 145
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-02-08T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-02-09T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-02-10T19:52:01", 
+      "amount": 155
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-02-11T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-02-12T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-02-13T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-02-14T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-02-15T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-02-16T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-02-17T19:52:01", 
+      "amount": 155
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-02-18T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-02-19T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-02-20T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-02-21T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-02-22T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-02-23T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-02-24T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-02-25T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-02-26T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-02-27T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-02-28T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ONLINEPIZZA SE", 
+      "date": "2013-03-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-01-30T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-01-31T19:52:01", 
+      "amount": 50
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-02-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-02-02T19:52:01", 
+      "amount": 110
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-02-03T19:52:01", 
+      "amount": 196
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-02-04T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-02-05T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-02-06T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-02-07T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-02-08T19:52:01", 
+      "amount": 230
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-02-09T19:52:01", 
+      "amount": 323
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-02-10T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-02-11T19:52:01", 
+      "amount": 439
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-02-12T19:52:01", 
+      "amount": 278
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-02-13T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-02-14T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-02-15T19:52:01", 
+      "amount": 210
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-02-16T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-02-17T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-02-18T19:52:01", 
+      "amount": 735
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-02-19T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-02-20T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-02-21T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-02-22T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-02-23T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-02-24T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-02-25T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-02-26T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-02-27T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-02-28T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ICA SUPERMARKET", 
+      "date": "2013-03-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-01-30T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-01-31T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-02-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-02-02T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-02-03T19:52:01", 
+      "amount": 169
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-02-04T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-02-05T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-02-06T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-02-07T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-02-08T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-02-09T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-02-10T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-02-11T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-02-12T19:52:01", 
+      "amount": 181
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-02-13T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-02-14T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-02-15T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-02-16T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-02-17T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-02-18T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-02-19T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-02-20T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-02-21T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-02-22T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-02-23T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-02-24T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-02-25T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-02-26T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-02-27T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-02-28T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "VIDEO RULLEN", 
+      "date": "2013-03-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-01-30T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-01-31T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-02-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-02-02T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-02-03T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-02-04T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-02-05T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-02-06T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-02-07T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-02-08T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-02-09T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-02-10T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-02-11T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-02-12T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-02-13T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-02-14T19:52:01", 
+      "amount": 70
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-02-15T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-02-16T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-02-17T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-02-18T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-02-19T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-02-20T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-02-21T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-02-22T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-02-23T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-02-24T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-02-25T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-02-26T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-02-27T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-02-28T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "...& KAFFE", 
+      "date": "2013-03-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-01-30T19:52:01", 
+      "amount": 56
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-01-31T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-02-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-02-02T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-02-03T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-02-04T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-02-05T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-02-06T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-02-07T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-02-08T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-02-09T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-02-10T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-02-11T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-02-12T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-02-13T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-02-14T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-02-15T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-02-16T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-02-17T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-02-18T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-02-19T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-02-20T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-02-21T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-02-22T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-02-23T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-02-24T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-02-25T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-02-26T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-02-27T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-02-28T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SJ REGIONAL STOC", 
+      "date": "2013-03-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-01-30T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-01-31T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-02-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-02-02T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-02-03T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-02-04T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-02-05T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-02-06T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-02-07T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-02-08T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-02-09T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-02-10T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-02-11T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-02-12T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-02-13T19:52:01", 
+      "amount": 248
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-02-14T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-02-15T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-02-16T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-02-17T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-02-18T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-02-19T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-02-20T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-02-21T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-02-22T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-02-23T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-02-24T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-02-25T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-02-26T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-02-27T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-02-28T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "THE RACKSPACE CL", 
+      "date": "2013-03-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-01-30T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-01-31T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-02-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-02-02T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-02-03T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-02-04T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-02-05T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-02-06T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-02-07T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-02-08T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-02-09T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-02-10T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-02-11T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-02-12T19:52:01", 
+      "amount": 300
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-02-13T19:52:01", 
+      "amount": 500
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-02-14T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-02-15T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-02-16T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-02-17T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-02-18T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-02-19T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-02-20T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-02-21T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-02-22T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-02-23T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-02-24T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-02-25T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-02-26T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-02-27T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-02-28T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Automatuttag", 
+      "date": "2013-03-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-01-30T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-01-31T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-02-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-02-02T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-02-03T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-02-04T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-02-05T19:52:01", 
+      "amount": 309
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-02-06T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-02-07T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-02-08T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-02-09T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-02-10T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-02-11T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-02-12T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-02-13T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-02-14T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-02-15T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-02-16T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-02-17T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-02-18T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-02-19T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-02-20T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-02-21T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-02-22T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-02-23T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-02-24T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-02-25T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-02-26T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-02-27T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-02-28T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLEARYS 917", 
+      "date": "2013-03-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-01-30T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-01-31T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-02-01T19:52:01", 
+      "amount": 613
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-02-02T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-02-03T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-02-04T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-02-05T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-02-06T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-02-07T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-02-08T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-02-09T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-02-10T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-02-11T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-02-12T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-02-13T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-02-14T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-02-15T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-02-16T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-02-17T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-02-18T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-02-19T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-02-20T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-02-21T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-02-22T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-02-23T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-02-24T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-02-25T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-02-26T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-02-27T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-02-28T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "LINODE.COM", 
+      "date": "2013-03-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-01-30T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-01-31T19:52:01", 
+      "amount": 220
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-02-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-02-02T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-02-03T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-02-04T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-02-05T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-02-06T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-02-07T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-02-08T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-02-09T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-02-10T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-02-11T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-02-12T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-02-13T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-02-14T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-02-15T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-02-16T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-02-17T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-02-18T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-02-19T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-02-20T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-02-21T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-02-22T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-02-23T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-02-24T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-02-25T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-02-26T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-02-27T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-02-28T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "CIAO CIAO QUATTR", 
+      "date": "2013-03-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-01-30T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-01-31T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-02-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-02-02T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-02-03T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-02-04T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-02-05T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-02-06T19:52:01", 
+      "amount": 178
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-02-07T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-02-08T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-02-09T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-02-10T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-02-11T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-02-12T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-02-13T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-02-14T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-02-15T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-02-16T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-02-17T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-02-18T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-02-19T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-02-20T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-02-21T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-02-22T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-02-23T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-02-24T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-02-25T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-02-26T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-02-27T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-02-28T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "Loopia AB", 
+      "date": "2013-03-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-01-30T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-01-31T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-02-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-02-02T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-02-03T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-02-04T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-02-05T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-02-06T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-02-07T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-02-08T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-02-09T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-02-10T19:52:01", 
+      "amount": 65
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-02-11T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-02-12T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-02-13T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-02-14T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-02-15T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-02-16T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-02-17T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-02-18T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-02-19T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-02-20T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-02-21T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-02-22T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-02-23T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-02-24T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-02-25T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-02-26T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-02-27T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-02-28T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "DROPBOX", 
+      "date": "2013-03-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-01-30T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-01-31T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-02-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-02-02T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-02-03T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-02-04T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-02-05T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-02-06T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-02-07T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-02-08T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-02-09T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-02-10T19:52:01", 
+      "amount": 99
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-02-11T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-02-12T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-02-13T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-02-14T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-02-15T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-02-16T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-02-17T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-02-18T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-02-19T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-02-20T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-02-21T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-02-22T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-02-23T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-02-24T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-02-25T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-02-26T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-02-27T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-02-28T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "OLJEBAREN", 
+      "date": "2013-03-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-01-30T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-01-31T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-02-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-02-02T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-02-03T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-02-04T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-02-05T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-02-06T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-02-07T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-02-08T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-02-09T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-02-10T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-02-11T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-02-12T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-02-13T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-02-14T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-02-15T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-02-16T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-02-17T19:52:01", 
+      "amount": 1286
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-02-18T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-02-19T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-02-20T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-02-21T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-02-22T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-02-23T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-02-24T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-02-25T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-02-26T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-02-27T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-02-28T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TELGE ENERGI AB", 
+      "date": "2013-03-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-01-30T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-01-31T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-02-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-02-02T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-02-03T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-02-04T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-02-05T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-02-06T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-02-07T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-02-08T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-02-09T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-02-10T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-02-11T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-02-12T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-02-13T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-02-14T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-02-15T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-02-16T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-02-17T19:52:01", 
+      "amount": 349
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-02-18T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-02-19T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-02-20T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-02-21T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-02-22T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-02-23T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-02-24T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-02-25T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-02-26T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-02-27T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-02-28T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MAGASINET FILTER", 
+      "date": "2013-03-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-01-30T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-01-31T19:52:01", 
+      "amount": 85
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-02-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-02-02T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-02-03T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-02-04T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-02-05T19:52:01", 
+      "amount": 85
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-02-06T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-02-07T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-02-08T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-02-09T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-02-10T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-02-11T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-02-12T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-02-13T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-02-14T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-02-15T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-02-16T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-02-17T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-02-18T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-02-19T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-02-20T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-02-21T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-02-22T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-02-23T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-02-24T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-02-25T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-02-26T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-02-27T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-02-28T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "GRET INDIAN REST", 
+      "date": "2013-03-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-01-30T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-01-31T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-02-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-02-02T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-02-03T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-02-04T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-02-05T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-02-06T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-02-07T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-02-08T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-02-09T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-02-10T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-02-11T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-02-12T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-02-13T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-02-14T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-02-15T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-02-16T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-02-17T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-02-18T19:52:01", 
+      "amount": 100
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-02-19T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-02-20T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-02-21T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-02-22T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-02-23T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-02-24T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-02-25T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-02-26T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-02-27T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-02-28T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00d6verf\u00f6ring 100/m\u00e5n", 
+      "date": "2013-03-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-01-30T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-01-31T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-02-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-02-02T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-02-03T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-02-04T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-02-05T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-02-06T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-02-07T19:52:01", 
+      "amount": 151
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-02-08T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-02-09T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-02-10T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-02-11T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-02-12T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-02-13T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-02-14T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-02-15T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-02-16T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-02-17T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-02-18T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-02-19T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-02-20T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-02-21T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-02-22T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-02-23T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-02-24T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-02-25T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-02-26T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-02-27T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-02-28T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "7102 DUTY FREE", 
+      "date": "2013-03-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-01-30T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-01-31T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-02-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-02-02T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-02-03T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-02-04T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-02-05T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-02-06T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-02-07T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-02-08T19:52:01", 
+      "amount": 790
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-02-09T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-02-10T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-02-11T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-02-12T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-02-13T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-02-14T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-02-15T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-02-16T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-02-17T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-02-18T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-02-19T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-02-20T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-02-21T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-02-22T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-02-23T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-02-24T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-02-25T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-02-26T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-02-27T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-02-28T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "SL S:t Eriksplan", 
+      "date": "2013-03-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-01-30T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-01-31T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-02-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-02-02T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-02-03T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-02-04T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-02-05T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-02-06T19:52:01", 
+      "amount": 226
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-02-07T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-02-08T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-02-09T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-02-10T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-02-11T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-02-12T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-02-13T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-02-14T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-02-15T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-02-16T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-02-17T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-02-18T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-02-19T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-02-20T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-02-21T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-02-22T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-02-23T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-02-24T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-02-25T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-02-26T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-02-27T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-02-28T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "\u00c5SGATAN 2 K\u00d6K &", 
+      "date": "2013-03-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-01-30T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-01-31T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-02-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-02-02T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-02-03T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-02-04T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-02-05T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-02-06T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-02-07T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-02-08T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-02-09T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-02-10T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-02-11T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-02-12T19:52:01", 
+      "amount": 64
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-02-13T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-02-14T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-02-15T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-02-16T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-02-17T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-02-18T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-02-19T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-02-20T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-02-21T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-02-22T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-02-23T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-02-24T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-02-25T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-02-26T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-02-27T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-02-28T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "KONDITORI LILLA", 
+      "date": "2013-03-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-01-30T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-01-31T19:52:01", 
+      "amount": 48
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-02-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-02-02T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-02-03T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-02-04T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-02-05T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-02-06T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-02-07T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-02-08T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-02-09T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-02-10T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-02-11T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-02-12T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-02-13T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-02-14T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-02-15T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-02-16T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-02-17T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-02-18T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-02-19T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-02-20T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-02-21T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-02-22T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-02-23T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-02-24T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-02-25T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-02-26T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-02-27T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-02-28T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "APOTEKET DRAKEN", 
+      "date": "2013-03-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-01-30T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-01-31T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-02-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-02-02T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-02-03T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-02-04T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-02-05T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-02-06T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-02-07T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-02-08T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-02-09T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-02-10T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-02-11T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-02-12T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-02-13T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-02-14T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-02-15T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-02-16T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-02-17T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-02-18T19:52:01", 
+      "amount": 129
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-02-19T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-02-20T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-02-21T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-02-22T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-02-23T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-02-24T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-02-25T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-02-26T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-02-27T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-02-28T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "FREE SOFTWARE FO", 
+      "date": "2013-03-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-01-30T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-01-31T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-02-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-02-02T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-02-03T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-02-04T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-02-05T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-02-06T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-02-07T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-02-08T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-02-09T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-02-10T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-02-11T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-02-12T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-02-13T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-02-14T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-02-15T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-02-16T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-02-17T19:52:01", 
+      "amount": 199
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-02-18T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-02-19T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-02-20T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-02-21T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-02-22T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-02-23T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-02-24T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-02-25T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-02-26T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-02-27T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-02-28T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "PayEx Credit AB/", 
+      "date": "2013-03-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-01-30T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-01-31T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-02-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-02-02T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-02-03T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-02-04T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-02-05T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-02-06T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-02-07T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-02-08T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-02-09T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-02-10T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-02-11T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-02-12T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-02-13T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-02-14T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-02-15T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-02-16T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-02-17T19:52:01", 
+      "amount": 110
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-02-18T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-02-19T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-02-20T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-02-21T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-02-22T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-02-23T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-02-24T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-02-25T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-02-26T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-02-27T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-02-28T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "TEXAS LONGHORN", 
+      "date": "2013-03-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-01-30T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-01-31T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-02-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-02-02T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-02-03T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-02-04T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-02-05T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-02-06T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-02-07T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-02-08T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-02-09T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-02-10T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-02-11T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-02-12T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-02-13T19:52:01", 
+      "amount": 75
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-02-14T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-02-15T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-02-16T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-02-17T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-02-18T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-02-19T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-02-20T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-02-21T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-02-22T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-02-23T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-02-24T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-02-25T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-02-26T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-02-27T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-02-28T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "ST ERIKS WOK HB", 
+      "date": "2013-03-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-01-30T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-01-31T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-02-01T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-02-02T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-02-03T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-02-04T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-02-05T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-02-06T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-02-07T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-02-08T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-02-09T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-02-10T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-02-11T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-02-12T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-02-13T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-02-14T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-02-15T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-02-16T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-02-17T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-02-18T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-02-19T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-02-20T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-02-21T19:52:01", 
+      "amount": 69
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-02-22T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-02-23T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-02-24T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-02-25T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-02-26T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-02-27T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-02-28T19:52:01", 
+      "amount": 0
+    }, 
+    {
+      "note": "MSFT   *XBOX LIV", 
+      "date": "2013-03-01T19:52:01", 
+      "amount": 0
+    }
+  ]
+};
+
+var raw_series = json.series;
 
 /* Rendering options */
 var margin = {top: 20, right: 30, bottom: 30, left: 40},
-    width = 960 - margin.left - margin.right,
+    width = 1170 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
 /* Parse the dates in the raw_series data */
@@ -46,8 +4740,8 @@ var yAxis = d3.svg.axis()
 
 
 /**
- * Create the stacked layout
- */
+* Create the stacked layout
+*/
 var stack = d3.layout.stack()
     .offset('silhouette')
     .values(function (d) { return d.values; })
@@ -55,8 +4749,8 @@ var stack = d3.layout.stack()
     .y(function (d) { return d.amount; });
 
 /**
- * Generated nested array of the series
- */
+* Generated nested array of the series
+*/
 var nest = d3.nest()
     .key(function (d) { return d.note })
     /*.key(function (d) { return d.date })*/
@@ -67,10 +4761,13 @@ var area = d3.svg.area()
         .y0(function (d) { return y(d.y0); })
         .y1(function (d) { return y(d.y0 + d.y); });
 
-var svg = d3.select('#chart').append('svg')
-    .attr('width', width + margin.left + margin.right)
-    .attr('height', height + margin.top + margin.bottom)
-  .append('g')
+var svg = d3.select('.chart').append('svg')
+    .attr('width', '1170')
+    .attr('height', 500)
+    .attr('viewBox', '0 0 ' + (width + margin.left + margin.right)
+        + ' ' + (height + margin.top + margin.bottom))
+    .attr('preserveAspectRatio', 'xMidYMid')
+.append('g')
     .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
 
 var layers = stack(nest.entries(raw_series));
@@ -81,7 +4778,7 @@ y.domain([0, d3.max(raw_series, function (d) { return d.y0 + d.y; })]);
 svg.selectAll(".layer")
     .data(layers)
 
-  .enter().append("path")
+.enter().append("path")
     .attr("class", "layer")
     .attr("d", function(d) { return area(d.values); })
     .attr('title', function (d) { return d.key; })
@@ -97,15 +4794,4 @@ svg.append("g")
     .call(yAxis);
 
     </script>
-    <style>
-#chart {
-  font: 10px sans-serif;
-}
-
-.axis path, .axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-    </style>
 {% endblock %}
